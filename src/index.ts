@@ -7,6 +7,6 @@ if (process.env.NODE_ENV !== 'production') {
   require('dotenv').config({ path: `${__dirname}/.env` })
 }
 
-app.listen(config.HTTP_PORT, () => {
+app.listen(config.HTTP_PORT, () : void => {
   console.log(`Listening on port ${config.HTTP_PORT}`)
 })

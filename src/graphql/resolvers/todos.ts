@@ -1,28 +1,36 @@
 import { ApolloError } from 'apollo-server-express'
 
-import db from 'db/'
+import db from '../../db/'
+import { ITodo, ITodoInput } from '../../types/todos'
 
 const queries = {
   /**
    * Fetches all todos
    */
-  todos: async (parent, args, { req }) => {
-    // try {
-    //   return []
-    // } catch (e) {
-    //   console.log(e, req.requestId)
-    //   throw new ApolloError(e)
-    // }
-    return []
+  todos: async (parent, args, { req }) : Promise<[ITodo]> => {
+    try {
+      return db.get('todos').value()
+    } catch (e) {
+      console.log(e, req.requestId)
+      throw new ApolloError(e)
+    }
   },
 
   /**
    * Fetches a todo by ID
    */
-  todo: async (parent, args, { req }) => {
-    // const { todoId } = args
+  todo: async (parent, args, { req }) : Promise<ITodo> => {
+    try {
+      const { id }: { id: string } = args
 
-    return {}
+      return db
+        .get('todos')
+        .getById(id)
+        .value()
+    } catch (e) {
+      console.log(e, req.requestId)
+      throw new ApolloError(e)
+    }
   }
 }
 
@@ -30,28 +38,51 @@ const mutations = {
   /**
    * Creates a todo
    */
-  createTodo: async (parent, args, { req }) => {
-    // const { todo: newTodo } = args
+  createTodo: async (parent, args, { req }) : Promise<ITodo> => {
+    try {
+      const { todo: newInput }: { todo: ITodoInput } = args
 
-    return {}
+      return db
+        .get('todos')
+        .insert(newInput)
+        .write()
+    } catch (e) {
+      console.log(e, req.requestId)
+      throw new ApolloError(e)
+    }
   },
 
   /**
    * Update a todo by its ID
    */
-  updateTodoById: async (parent, args, { req }) => {
-    // const { todoId } = args
+  updateTodoById: async (parent, args, { req }) : Promise<ITodo> => {
+    try {
+      const { todo: newInput, todoId }: { todo: ITodoInput, todoId: string } = args
 
-    return {}
+      return db.get('todos')
+        .find({ id: todoId })
+        .assign(newInput)
+        .write()
+    } catch (e) {
+      console.log(e, req.requestId)
+      throw new ApolloError(e)
+    }
   },
 
   /**
    * Delete a todo by its ID
    */
-  deleteTodoById: async (parent, args, { req }) => {
-    // const { todoId } = args
+  deleteTodoById: async (parent, args, { req }) : Promise<string> => {
+    try {
+      const { id }: { id: string } = args
 
-    return ''
+      db.get('todos').remove({ id }).write()
+
+      return id
+    } catch (e) {
+      console.log(e, req.requestId)
+      throw new ApolloError(e)
+    }
   }
 }
 

@@ -5,7 +5,7 @@ function identity(value) {
   return value
 }
 
-function ensureObject(value) {
+function ensureObject(value) : any {
   if (typeof value !== 'object' || value === null || Array.isArray(value)) {
     throw new TypeError(
       `JSONObject cannot represent non-object value: ${value}`,
@@ -26,7 +26,7 @@ function parseObject(ast, variables) {
   return value
 }
 
-function parseLiteral(ast, variables) {
+function parseLiteral(ast, variables) : any {
   switch (ast.kind) {
     case Kind.STRING:
     case Kind.BOOLEAN:
@@ -49,7 +49,7 @@ function parseLiteral(ast, variables) {
   }
 }
 
-export const GraphQLJSON = new GraphQLScalarType({
+export const GraphQLJSON: GraphQLScalarType = new GraphQLScalarType({
   name: 'JSON',
   description:
     'The `JSON` scalar type represents JSON values as specified by [ECMA-404](http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf).',
@@ -58,7 +58,7 @@ export const GraphQLJSON = new GraphQLScalarType({
   parseLiteral
 })
 
-export const GraphQLJSONObject = new GraphQLScalarType({
+export const GraphQLJSONObject: GraphQLScalarType = new GraphQLScalarType({
   name: 'JSONObject',
   description:
     'The `JSONObject` scalar type represents JSON objects as specified by [ECMA-404](http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf).',

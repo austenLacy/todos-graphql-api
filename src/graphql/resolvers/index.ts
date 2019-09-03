@@ -5,14 +5,14 @@ import {
 } from 'graphql-iso-date' // imported non-standard scalar types
 
 // custom scalars
-import GraphQLUUID from 'graphql/scalars/uuid'
-import { GraphQLJSON, GraphQLJSONObject } from 'graphql/scalars/json'
+import GraphQLUUID from '../scalars/uuid'
+import { GraphQLJSON, GraphQLJSONObject } from '../scalars/json'
 
 // todos resolvers
 import {
   queries as todosQueries,
   mutations as todosMutations
-} from 'graphql/resolvers/todos'
+} from './todos'
 
 export default {
   // custom scalars

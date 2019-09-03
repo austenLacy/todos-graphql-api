@@ -4,28 +4,28 @@ import { Kind } from 'graphql/language'
 const uuidRegex = /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
 const nilUUID = '00000000-0000-0000-0000-000000000000'
 
-function isUUID(value) {
+function isUUID(value) : boolean {
   return uuidRegex.test(value) || nilUUID === value
 }
 
-const GraphQLUUID = new GraphQLScalarType({
+const GraphQLUUID: GraphQLScalarType = new GraphQLScalarType({
   name: 'UUID',
   description: 'The `UUID` scalar type represents UUID values as specified by [RFC 4122](https://tools.ietf.org/html/rfc4122).',
-  serialize: (value) => {
+  serialize: (value) : string => {
     if (!isUUID(value)) {
       throw new TypeError(`UUID cannot represent non-UUID value: ${value}`)
     }
 
     return value.toLowerCase()
   },
-  parseValue: (value) => {
+  parseValue: (value) : string => {
     if (!isUUID(value)) {
       throw new TypeError(`UUID cannot represent non-UUID value: ${value}`)
     }
 
     return value.toLowerCase()
   },
-  parseLiteral: (ast) => {
+  parseLiteral: (ast) : string => {
     if (ast.kind === Kind.STRING) {
       if (isUUID(ast.value)) {
         return ast.value

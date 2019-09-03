@@ -5,11 +5,12 @@ export default gql`
   input TodoInput {
     id: UUID
     description: String
+    status: TodoStatus
   }
 
   # TYPES
   type Todo {
-    id: UUID
+    id: UUID!
     description: String!
     status: TodoStatus!
     deletedAt: DateTime

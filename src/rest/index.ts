@@ -1,12 +1,12 @@
 import express from 'express'
 
-import health from 'rest/health'
-import metrics from 'rest/metrics'
+import health from './health'
+import metrics from './metrics'
 
 const app = express.Router({ mergeParams: true })
 
-app.get('/', (req, res) => {
-  res.status(200).send('Todos GraphQL API')
+app.get('/', (req: express.Request, res: express.Response) : express.Response => {
+  return res.status(200).send('Todos GraphQL API')
 })
 
 const appWrapper = { router: app, root: '' }

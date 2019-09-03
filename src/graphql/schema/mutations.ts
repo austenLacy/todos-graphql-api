@@ -9,6 +9,6 @@ export default gql`
     updateTodoById(todoId: UUID, todo: TodoInput): Todo!
 
     # delete a todo by its ID
-    deleteTodoById(todoId: UUID): UUID!
+    deleteTodoById(id: UUID): UUID!
   }
 `

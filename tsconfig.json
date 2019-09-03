@@ -6,14 +6,9 @@
     "moduleResolution": "node",
     "sourceMap": true,
     "outDir": "dist",
+    "skipLibCheck": true,
     "allowSyntheticDefaultImports": true,
-    "baseUrl": ".",
-    "paths": {
-      "*": [
-        "*",
-        "src/*"
-      ]
-    }
+    "typeRoots" : ["./node_modules/@types", "./src/types"]
   },
   "include": [
     "src/**/*.ts"
