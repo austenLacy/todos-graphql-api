@@ -1,14 +1,21 @@
 import lowdb from 'lowdb'
-// lodash-id add autogeneration of UUIDs on writes
+// lodash-id adds autogeneration of UUIDs on writes
 // and provides some nice high level helpers (e.g. getById)
 import lodashId from 'lodash-id'
 import FileSync from 'lowdb/adapters/FileSync'
+import { IDBOptions } from '../types/db';
 
-const DB_LOC: string = 'db.json'
-const storageAdapter = new FileSync(DB_LOC, { defaultValue: {} })
-const db = lowdb(storageAdapter)
-db._.mixin(lodashId)
+export default class Database {
+  public instance;
 
-db.defaults({ todos: [] }).write()
+  constructor(options: IDBOptions) {
+    const { storageLocation, defaults } = options
 
-export default db
+    const dbLoc = storageLocation || 'db.json'
+    const storageAdapter = new FileSync(dbLoc, { defaultValue: {} })
+    this.instance = lowdb(storageAdapter)
+    this.instance._.mixin(lodashId)
+    const defaultData = defaults || {}
+    this.instance.defaults(defaultData).write()
+  }
+}

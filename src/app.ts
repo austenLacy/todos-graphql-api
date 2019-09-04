@@ -10,6 +10,7 @@ import rest from './rest'
 import graphQLSchema from './graphql/schema'
 import graphQLResolvers from './graphql/resolvers'
 import GraphQLBasicLogger from './graphql/utils/logger'
+import Database from './db'
 
 const app = express()
 
@@ -54,10 +55,14 @@ const graphQLServer: ApolloServer = new ApolloServer({
   // Adds any context information for every
   // api call. You could add a reference to a
   // database here, logging singleton, etc.
-  context: ({ req }) => {
+  context: ({ req } : { req: any }) => {
     return {
-      req
-      // db,
+      req,
+      requestId: req.requestId,
+      db: new Database({
+        storageLocation: 'db.json',
+        defaults: { todos: [] }
+      })
       // logger,
       // etc...
     }

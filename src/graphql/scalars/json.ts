@@ -1,10 +1,6 @@
 import { GraphQLScalarType } from 'graphql'
 import { Kind } from 'graphql/language'
 
-function identity(value) {
-  return value
-}
-
 function ensureObject(value) : any {
   if (typeof value !== 'object' || value === null || Array.isArray(value)) {
     throw new TypeError(
@@ -48,15 +44,6 @@ function parseLiteral(ast, variables) : any {
       return undefined
   }
 }
-
-export const GraphQLJSON: GraphQLScalarType = new GraphQLScalarType({
-  name: 'JSON',
-  description:
-    'The `JSON` scalar type represents JSON values as specified by [ECMA-404](http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf).',
-  serialize: identity,
-  parseValue: identity,
-  parseLiteral
-})
 
 export const GraphQLJSONObject: GraphQLScalarType = new GraphQLScalarType({
   name: 'JSONObject',

@@ -6,7 +6,7 @@ import {
 
 // custom scalars
 import GraphQLUUID from '../scalars/uuid'
-import { GraphQLJSON, GraphQLJSONObject } from '../scalars/json'
+import { GraphQLJSONObject } from '../scalars/json'
 
 // todos resolvers
 import {
@@ -20,7 +20,6 @@ export default {
   Date: GraphQLDate,
   Time: GraphQLTime,
   DateTime: GraphQLDateTime,
-  JSON: GraphQLJSON,
   JSONObject: GraphQLJSONObject,
 
   // queries

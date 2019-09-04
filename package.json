@@ -6,7 +6,8 @@
 	"scripts": {
 		"start": "node dist/index.js",
 		"dev": "ts-node-dev --no-notify --pretty --respawn --transpile-only --log-error ./src | bunyan -o short ",
-		"clean": "rimraf dist"
+		"clean": "rimraf dist",
+		"test": "mocha -r ts-node/register ./src/**/*.spec.ts"
 	},
 	"dependencies": {
 		"apollo-server-express": "^2.5.0",
@@ -31,8 +32,12 @@
 		"uuid": "^3.3.3"
 	},
 	"devDependencies": {
+		"@types/chai": "^4.2.1",
 		"@types/express": "^4.17.1",
+		"@types/mocha": "^5.2.7",
 		"@types/node": "^12.7.3",
+		"apollo-server-testing": "^2.9.3",
+		"chai": "^4.2.0",
 		"eslint": "^4.12.1",
 		"eslint-config-airbnb": "^11.1.0",
 		"eslint-plugin-import": "^2.8.0",
@@ -40,6 +45,8 @@
 		"eslint-plugin-jsx-a11y": "^2.2.1",
 		"eslint-plugin-react": "^7.7.0",
 		"eslint-watch": "^3.1.3",
+		"mocha": "^6.2.0",
+		"ts-node": "^8.3.0",
 		"ts-node-dev": "^1.0.0-pre.42",
 		"typescript": "^3.6.2"
 	},
